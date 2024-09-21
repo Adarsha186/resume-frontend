@@ -21,13 +21,9 @@ jobs:
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: your-project-id
+          project_id: t-science-434802-f8
           export_default_credentials: true
 
       - name: Deploy to Cloud Storage
         run: |
           gsutil -m rsync -r ./ gs://www.theadarsha.net
-
-      - name: Invalidate Cloud CDN cache
-        run: |
-          gcloud compute url-maps invalidate-cdn-cache static-resume-https --path "/index.html"
