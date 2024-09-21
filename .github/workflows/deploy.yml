@@ -30,4 +30,4 @@ jobs:
 
       - name: Invalidate Cloud CDN cache
         run: |
-          gcloud compute url-maps invalidate-cdn-cache static-resume-https --path "/*"
+          gcloud compute url-maps invalidate-cdn-cache static-resume-https --path "/index.html"
