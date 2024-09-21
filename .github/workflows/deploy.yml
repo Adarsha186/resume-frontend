@@ -1,0 +1,30 @@
+name: Deploy to Google Cloud Storage
+
+on:
+  push:
+    branches:
+      - main  # Trigger the action on pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        version: 'latest'
+        service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+        project_id: t-science-434802-f8
+
+    - name: Deploy to Cloud Storage
+      run: |
+        gsutil -m rsync -r ./ gs://www.theadarsha.net
+
+    - name: Invalidate Cloud CDN cache
+      run: |
+        gcloud compute url-maps invalidate-cdn-cache static-resume-https --path "/*"
+
