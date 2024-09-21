@@ -1,6 +1,6 @@
 - name: Set up Cloud SDK
   uses: google-github-actions/setup-gcloud@v1
   with:
-    service_account_key: ${{ secrets.GCP_SECRET_KEY }}
+    service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
     project_id: t-science-434802-f8
     export_default_credentials: true
